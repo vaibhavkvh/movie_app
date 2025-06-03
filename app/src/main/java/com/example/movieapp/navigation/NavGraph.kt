@@ -27,14 +27,14 @@ fun SetupNavGraph(navController: NavHostController) {
 
         }
 
-        composable(
+       /* composable(
             route = Screen.Details.route,
             arguments = listOf(navArgument(DETAILS_ARGUMENT_KEY) {
                 type = NavType.IntType
             })
         ) {
 
-        }
+        }*/
 
         composable(route = Screen.Search.route) {
 

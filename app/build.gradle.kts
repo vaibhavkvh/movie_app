@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+    implementation("androidx.room:room-paging:2.7.1")
 
     //Retrofit
     implementation(libs.retrofit)
