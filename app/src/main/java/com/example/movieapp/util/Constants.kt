@@ -1,6 +1,8 @@
 package com.example.movieapp.util
 
 object Constants {
+
+    const val APP_TAG ="MovieApp"
     const val DETAILS_ARGUMENT_KEY ="heroID"
 
 
