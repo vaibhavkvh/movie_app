@@ -23,6 +23,14 @@ val DarkTypography = Typography(
         fontSize = 14.sp,
         letterSpacing = 0.5.sp,
         color = Color.White
+    ),
+    labelLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp,
+        color = Color.Black
     )
     /* Other default text styles to override
     titleLarge = TextStyle(

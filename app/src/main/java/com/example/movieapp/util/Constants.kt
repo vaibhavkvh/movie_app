@@ -2,10 +2,13 @@ package com.example.movieapp.util
 
 object Constants {
 
-    const val APP_TAG ="MovieApp"
+    const val TAG ="MovieApp"
     const val DETAILS_ARGUMENT_KEY ="heroID"
 
+    const val SPLASH_DELAY = 1000L
 
+    const val PREFERENCE_DATA_STORE = "movie_app_preference"
+    const val PREFERENCE_ONBOARD_COMPLETE = "onboarding_completed"
 
     const val HERO_REMOTE_KEY_TABLE_NAME = "hero_remote_key_table"
     const val HERO_TABLE_NAME = "hero_table"

@@ -1,5 +1,6 @@
 package com.example.movieapp.presentation.screens.welcome
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,8 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,13 +30,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.movieapp.domain.model.OnBoardingPage
+import com.example.movieapp.navigation.Screen
+import com.example.movieapp.presentation.viewmodels.WelcomeViewModel
+import com.example.movieapp.ui.theme.EXTRA_LARGE_PADDING
 import com.example.movieapp.ui.theme.LARGE_PADDING
 
 
 @Composable
-fun WelcomeScreen(navHostController: NavHostController) {
+fun WelcomeScreen(navHostController: NavHostController,
+                  welcomeViewModel: WelcomeViewModel = hiltViewModel()
+) {
 
     val pages = listOf(OnBoardingPage.First, OnBoardingPage.Second, OnBoardingPage.Third)
 
@@ -51,25 +61,59 @@ fun WelcomeScreen(navHostController: NavHostController) {
             PagerScreen(pages[it])
         }
 
-        Row(
-            Modifier
-                .wrapContentHeight()
+        GetPagerIndicator(modifier = Modifier.weight(1f), pagerState)
+
+        GetFinishButton(modifier = Modifier.weight(2f), pagerState) {
+            navHostController.popBackStack()
+            navHostController.navigate(Screen.Home.route)
+            welcomeViewModel.saveOnBoardingState(isCompleted = true)
+        }
+    }
+}
+
+@Composable
+fun GetFinishButton(modifier: Modifier, pagerState: PagerState, onClick: () -> Unit) {
+    Row(modifier = modifier) {
+        AnimatedVisibility(
+            modifier = modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp)
-                .weight(1f),
-            horizontalArrangement = Arrangement.Center
+                .padding(EXTRA_LARGE_PADDING),
+            visible = pagerState.currentPage == pagerState.pageCount-1
         ) {
-            repeat(pagerState.pageCount) { iteration ->
-                val color =
-                    if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
-                Box(
-                    modifier = Modifier
-                        .padding(2.dp)
-                        .clip(CircleShape)
-                        .background(color)
-                        .size(16.dp)
+            ElevatedButton(
+                onClick = onClick,
+                colors = ButtonDefaults.elevatedButtonColors(
+
+                    containerColor = Color.Blue,
+                    contentColor = MaterialTheme.colorScheme.background
                 )
+            ) {
+                Text("Finish", style = MaterialTheme.typography.labelLarge)
             }
+        }
+
+    }
+}
+
+@Composable
+fun GetPagerIndicator(modifier: Modifier, pagerState: PagerState) {
+    return Row(
+        modifier
+            .wrapContentHeight()
+            .fillMaxWidth()
+            .padding(bottom = 8.dp),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        repeat(pagerState.pageCount) { iteration ->
+            val color =
+                if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
+            Box(
+                modifier = Modifier
+                    .padding(2.dp)
+                    .clip(CircleShape)
+                    .background(color)
+                    .size(16.dp)
+            )
         }
     }
 }
