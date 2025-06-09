@@ -3,7 +3,9 @@ package com.example.movieapp.domain.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.movieapp.util.Constants.HERO_TABLE_NAME
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = HERO_TABLE_NAME)
 data class Hero(
     @PrimaryKey(autoGenerate = false)
