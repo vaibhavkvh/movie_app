@@ -5,6 +5,7 @@ import com.example.movieapp.data.repository.DataStoreOperationImpl
 import com.example.movieapp.data.repository.Repository
 import com.example.movieapp.domain.repository.DataStoreOperations
 import com.example.movieapp.domain.usecase.UseCases
+import com.example.movieapp.domain.usecase.heroes_usecases.GetAllHeroesUseCases
 import com.example.movieapp.domain.usecase.onBoardingUseCase.ReadOnBoardingUseCase
 import com.example.movieapp.domain.usecase.onBoardingUseCase.SaveOnBoardingUseCase
 import dagger.Module
@@ -31,7 +32,8 @@ object RepositoryModule {
     fun provideUseCases(repository: Repository): UseCases {
         return UseCases(
             onBoardingUseCase = SaveOnBoardingUseCase(repository),
-            readOnBoardingUseCase = ReadOnBoardingUseCase(repository)
+            readOnBoardingUseCase = ReadOnBoardingUseCase(repository),
+            getAllHeroesUseCases = GetAllHeroesUseCases(repository)
         )
     }
 }

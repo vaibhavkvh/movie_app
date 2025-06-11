@@ -1,6 +1,9 @@
 package com.example.movieapp.di
 
+import com.example.movieapp.data.local.MovieDatabase
 import com.example.movieapp.data.remote.MovieApi
+import com.example.movieapp.data.repository.RemoteDataSourceImpl
+import com.example.movieapp.domain.repository.RemoteDataSource
 import com.example.movieapp.util.Constants.BASE_URL
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -22,10 +25,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient() : OkHttpClient{
+    fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.MINUTES)
-            .connectTimeout(15,TimeUnit.MINUTES)
+            .connectTimeout(15, TimeUnit.MINUTES)
             .build()
     }
 
@@ -43,7 +46,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMovieApi(retrofit: Retrofit) : MovieApi{
+    fun provideMovieApi(retrofit: Retrofit): MovieApi {
         return retrofit.create(MovieApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRemoteDataSource(movieApi: MovieApi, database: MovieDatabase): RemoteDataSource {
+        return RemoteDataSourceImpl(movieApi, database)
     }
 }

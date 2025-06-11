@@ -10,6 +10,8 @@ object Constants {
 
     const val SPLASH_DELAY = 1000L
 
+    const val ITEM_PER_PAGE = 3
+
     const val PREFERENCE_DATA_STORE = "movie_app_preference"
     const val PREFERENCE_ONBOARD_COMPLETE = "onboarding_completed"
 

@@ -1,4 +1,5 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MovieApp</string>
     <string name="app_icon">App icon</string>
+    <string name="star" tools:ignore="TypographyDashes">m233-120 65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z</string>
 </resources>
